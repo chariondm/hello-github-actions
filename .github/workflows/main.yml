@@ -10,3 +10,14 @@ jobs:
       - uses: ./action-a
         with:
           MY_NAME: "Mona"
+          run: echo "$EVENT"
+      - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+      - run: echo "repoName:>>> ${{ env.REPOSITORY_NAME }}"
+
+  print-env:
+    runs-on: ubuntu-latest
+    name: Print event data
+    env: 
+        EVENT: ${{ toJSON( github.event ) }}
+        run: echo "$EVENT"
