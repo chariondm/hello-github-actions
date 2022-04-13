@@ -16,4 +16,13 @@ jobs:
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
         shell: bash
       - run: echo "repoName:>>> ${{ env.REPOSITORY_NAME }}"
-      - run: echo "$EVENT"
+      
+      - name: "Eventos"
+        run: echo "$EVENT"
+      
+      - name: "Reposi"
+        run: echo "${{ github.repository }}"
+        
+      - name: "Variaveis"
+        run: printenv
+      
