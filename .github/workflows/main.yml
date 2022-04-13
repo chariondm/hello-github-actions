@@ -13,9 +13,6 @@ jobs:
         with:
           MY_NAME: "Mona"
           run: echo "$EVENT"
-      - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-        shell: bash
-      - run: echo "repoName:>>> ${{ env.REPOSITORY_NAME }}"
       
       - name: "Eventos"
         run: echo "$EVENT"
@@ -23,6 +20,10 @@ jobs:
       - name: "Reposi"
         run: echo "${{ github.repository }}"
         
-      - name: "Variaveis"
+      - name: "printenv"
         run: printenv
+        
+      - name: "SHA"
+        run: echo "${{ steps.determine-sha.outputs.git-sha }}"
+        shell: bash
       
