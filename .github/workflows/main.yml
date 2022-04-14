@@ -22,7 +22,7 @@ jobs:
         run: echo "${{ github.repository }}"
         
       - name: 'Repository shortname'
-        run: echo "${ ECR_REPOSITORY }"
+        run: echo "$ECR_REPOSITORY"
         
       - name: "printenv"
         run: printenv
