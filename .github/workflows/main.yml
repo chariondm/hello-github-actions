@@ -7,13 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     env: 
         EVENT: ${{ toJSON( github.event ) }}
-        ECR_REPOSITORY: ${{ github }}
+        ECR_REPOSITORY: ''
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
         with:
           MY_NAME: "Mona"
           run: echo "$EVENT"
+          
+      - name: 'Set reponame'
+        run: echo "$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $ECR_REPOSITORY
       
       - name: "Eventos"
         run: echo "$EVENT"
