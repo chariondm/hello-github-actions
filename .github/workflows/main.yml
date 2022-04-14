@@ -1,5 +1,8 @@
 name: A workflow for my Hello World file
-on: push
+on:
+ - push
+ - pull_request
+ - workflow_dispatch
 
 jobs:
   build:
@@ -7,16 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     env: 
         EVENT: ${{ toJSON( github.event ) }}
+        BU: 'ZAP'
+        SQUAD: 'OWNERS'
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
         with:
           MY_NAME: "Mona"
           run: echo "$EVENT"
-          
-      - name: 'Set reponame'
-        run: echo ::set-env name=ECR_REPOSITORY::$(echo "zap/owners/$GITHUB_REPOSITORY" | awk -F / '{print $2}')
-        shell: bash
+      
+      - name: Fetch Repo Name
+        id: repo-name
+        run: echo "::set-output name=value::$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
       
       - name: "Eventos"
         run: echo "$EVENT"
@@ -25,7 +30,7 @@ jobs:
         run: echo "${{ github.repository }}"
         
       - name: 'Repository shortname'
-        run: echo "$ECR_REPOSITORY"
+        run: echo "${{ steps.repo-name.outputs.value }}"
         
       - name: "printenv"
         run: printenv
@@ -37,4 +42,14 @@ jobs:
       - name: 'GITHUB_REPOSITORY_OWNER'
         run: echo "${{ github.repository.owner }}"
         shell: bash
+  
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Execute Unit Tests
+        run: echo "${{ steps.repo-name.outputs.value }}"
+    
       
