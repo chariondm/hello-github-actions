@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     env: 
         EVENT: ${{ toJSON( github.event ) }}
-        ECR_REPOSITORY: ''
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
