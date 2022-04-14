@@ -15,7 +15,8 @@ jobs:
           run: echo "$EVENT"
           
       - name: 'Set reponame'
-        run: echo "$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $ECR_REPOSITORY
+        run: echo ::set-env name=ECR_REPOSITORY::$(echo "zap/owners/$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+        shell: bash
       
       - name: "Eventos"
         run: echo "$EVENT"
