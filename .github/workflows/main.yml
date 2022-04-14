@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
         EVENT: ${{ toJSON( github.event ) }}
-        ECR_REPOSITORY: $(echo '${{ github.repository }}' | awk -F '/' '{print $2}')
+        ECR_REPOSITORY: ${{ github.repository.split('/').slice(1).join('/') }}
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
