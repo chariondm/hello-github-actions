@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
         EVENT: ${{ toJSON( github.event ) }}
+        ECR_REPOSITORY: ${{ "$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" }}
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
@@ -21,7 +22,7 @@ jobs:
         run: echo "${{ github.repository }}"
         
       - name: 'Repository shortname'
-        run: echo "$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
+        run: echo "${ ECR_REPOSITORY }"
         
       - name: "printenv"
         run: printenv
