@@ -17,8 +17,11 @@ jobs:
       - name: "Eventos"
         run: echo "$EVENT"
       
-      - name: "Reposi"
+      - name: "Repository fullname"
         run: echo "${{ github.repository }}"
+        
+      - name: 'Repository shortname'
+        run: echo "$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
         
       - name: "printenv"
         run: printenv
