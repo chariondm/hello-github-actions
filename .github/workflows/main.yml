@@ -26,4 +26,8 @@ jobs:
       - name: "SHA"
         run: echo "${{ github.sha }}"
         shell: bash
+        
+      - name: 'GITHUB_REPOSITORY_OWNER'
+        run: echo "${{ github.repository.owner }}"
+        shell: bash
       
